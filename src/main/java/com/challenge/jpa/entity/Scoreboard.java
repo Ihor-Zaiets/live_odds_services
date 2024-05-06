@@ -1,5 +1,7 @@
 package com.challenge.jpa.entity;
 
+import com.challenge.exception.ExceptionMessage;
+import com.challenge.exception.ValidateException;
 import com.challenge.jpa.enums.Country;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,14 +20,20 @@ public class Scoreboard {
     private List<Match> scoreboard = new ArrayList<>();
 
     public Match startMatch(Country homeTeam, Country awayTeam) {
-        return null;
+        Match match = new Match(homeTeam, awayTeam);
+        scoreboard.add(match);
+        return match;
     }
 
     public Match updateScore(Match match, Score score) {
-        return null;
+        if (!scoreboard.contains(match)) {
+            throw new ValidateException(ExceptionMessage.SCORE_UPDATE_ERROR_NO_SUCH_MATCH);
+        }
+        match.setScore(score);
+        return match;
     }
 
     public Boolean finishMatch(Match match) {
-        return null;
+        return scoreboard.remove(match);
     }
 }

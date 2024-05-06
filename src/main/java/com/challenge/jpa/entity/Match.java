@@ -1,12 +1,11 @@
 package com.challenge.jpa.entity;
 
+import com.challenge.exception.ExceptionMessage;
 import com.challenge.jpa.enums.Country;
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class Match {
 
     @NonNull
@@ -14,6 +13,25 @@ public class Match {
     @NonNull
     private Country awayTeam;
     private Score score = new Score();
+
+    public Match(@NonNull Country homeTeam, @NonNull Country awayTeam) {
+        if (homeTeam == awayTeam)
+            throw new IllegalArgumentException(ExceptionMessage.MATCH_COUNTRIES_CANNOT_BE_THE_SAME);
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+    }
+
+    public void setHomeTeam(Country homeTeam) {
+        if (homeTeam == getAwayTeam())
+            throw new IllegalArgumentException(ExceptionMessage.MATCH_COUNTRIES_CANNOT_BE_THE_SAME);
+        this.homeTeam = homeTeam;
+    }
+
+    public void setAwayTeam(Country awayTeam) {
+        if (getHomeTeam() == awayTeam)
+            throw new IllegalArgumentException(ExceptionMessage.MATCH_COUNTRIES_CANNOT_BE_THE_SAME);
+        this.awayTeam = awayTeam;
+    }
 
     @Override
     public boolean equals(Object o) {

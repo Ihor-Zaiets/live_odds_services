@@ -2,7 +2,11 @@ package com.challenge.jpa.entity;
 
 import com.challenge.exception.ExceptionMessage;
 import com.challenge.jpa.enums.Country;
-import lombok.*;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,6 +17,7 @@ public class Match {
     @NonNull
     private Country awayTeam;
     private Score score = new Score();
+    private LocalDateTime startDate = LocalDateTime.now();
 
     public Match(@NonNull Country homeTeam, @NonNull Country awayTeam) {
         if (homeTeam == awayTeam)

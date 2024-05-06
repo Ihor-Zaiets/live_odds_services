@@ -1,7 +1,7 @@
-package com.challenge.jpa.entity;
+package com.challenge;
 
 import com.challenge.exception.ExceptionMessage;
-import com.challenge.jpa.enums.Country;
+import com.challenge.enums.Country;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;

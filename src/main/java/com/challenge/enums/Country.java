@@ -1,4 +1,4 @@
-package com.challenge.jpa.enums;
+package com.challenge.enums;
 
 public enum Country {
     ARGENTINA,

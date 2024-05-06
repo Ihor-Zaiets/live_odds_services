@@ -1,8 +1,7 @@
-package com.challenge.jpa.entity;
+package com.challenge;
 
 import com.challenge.exception.ExceptionMessage;
 import com.challenge.exception.ValidateException;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

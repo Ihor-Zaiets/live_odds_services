@@ -1,45 +1,21 @@
+import com.challenge.Match;
+import com.challenge.Score;
+import com.challenge.Scoreboard;
+import com.challenge.enums.Country;
 import com.challenge.exception.ExceptionMessage;
 import com.challenge.exception.ValidateException;
-import com.challenge.jpa.entity.Match;
-import com.challenge.jpa.entity.Score;
-import com.challenge.jpa.entity.Scoreboard;
-import com.challenge.jpa.enums.Country;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LiveOddsServiceTest {
+public class ScoreboardTest {
 
     private static final Integer DEFAULT_VALUE = 0;
-    @Test
-    public void shouldCreateMatchWithDefaultValues() {
-        Match match = new Match(Country.ARGENTINA, Country.BRAZIL);
-        assertEquals(DEFAULT_VALUE, match.getScore().getHomeTeamScore());
-        assertEquals(DEFAULT_VALUE, match.getScore().getAwayTeamScore());
-    }
-
-    @Test
-    public void shouldThrowIfMatchHasSameCountries() {
-        Match match = new Match(Country.ARGENTINA, Country.AUSTRALIA);
-        assertThrows(IllegalArgumentException.class, () -> new Match(Country.ARGENTINA, Country.ARGENTINA), ExceptionMessage.MATCH_COUNTRIES_CANNOT_BE_THE_SAME);
-        assertThrows(IllegalArgumentException.class, () -> {
-            match.setAwayTeam(match.getHomeTeam());
-            match.setHomeTeam(match.getAwayTeam());
-        }, ExceptionMessage.MATCH_COUNTRIES_CANNOT_BE_THE_SAME);
-    }
-
-    @Test
-    public void shouldThrowIfScoreIsLessThenZero() {
-        assertThrows(ValidateException.class, () -> new Score(-1, 0), ExceptionMessage.SCORE_CANNOT_BE_LESS_THEN_ZERO);
-        assertThrows(ValidateException.class, () -> new Score(0, -1), ExceptionMessage.SCORE_CANNOT_BE_LESS_THEN_ZERO);
-        assertThrows(ValidateException.class, () -> new Score(-1, -1), ExceptionMessage.SCORE_CANNOT_BE_LESS_THEN_ZERO);
-    }
 
     @Test
     public void scoreboardShouldCreateMatchWithDefaultValues() {

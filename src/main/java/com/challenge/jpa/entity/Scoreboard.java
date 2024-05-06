@@ -17,16 +17,16 @@ import java.util.List;
 @NoArgsConstructor
 public class Scoreboard {
 
-    private List<Match> scoreboard = new ArrayList<>();
+    private List<Match> scoreboardMatchList = new ArrayList<>();
 
     public Match startMatch(Country homeTeam, Country awayTeam) {
         Match match = new Match(homeTeam, awayTeam);
-        scoreboard.add(match);
+        scoreboardMatchList.add(match);
         return match;
     }
 
     public Match updateScore(Match match, Score score) {
-        if (!scoreboard.contains(match)) {
+        if (!scoreboardMatchList.contains(match)) {
             throw new ValidateException(ExceptionMessage.SCORE_UPDATE_ERROR_NO_SUCH_MATCH);
         }
         match.setScore(score);
@@ -34,6 +34,6 @@ public class Scoreboard {
     }
 
     public Boolean finishMatch(Match match) {
-        return scoreboard.remove(match);
+        return scoreboardMatchList.remove(match);
     }
 }

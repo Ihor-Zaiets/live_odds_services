@@ -50,9 +50,9 @@ public class LiveOddsServiceTest {
     public void shouldAddMatchToScoreboard() {
         int numberOfCreatedMatches = 1;
         Scoreboard scoreboard = new Scoreboard();
-        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboard());
+        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboardMatchList());
         Match match = scoreboard.startMatch(Country.ARGENTINA, Country.BRAZIL);
-        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboard());
+        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboardMatchList());
         assertTrue(scoreboardAfter.contains(match));
         assertEquals(scoreboardBefore.size() + numberOfCreatedMatches, scoreboardAfter.size());
     }
@@ -62,9 +62,9 @@ public class LiveOddsServiceTest {
         int numberOfDeletedMatches = 1;
         Scoreboard scoreboard = new Scoreboard();
         Match match = scoreboard.startMatch(Country.ARGENTINA, Country.BRAZIL);
-        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboard());
+        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboardMatchList());
         assertTrue(scoreboard.finishMatch(match));
-        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboard());
+        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboardMatchList());
 
         assertTrue(scoreboardBefore.contains(match));
         assertFalse(scoreboardAfter.contains(match));
@@ -75,9 +75,9 @@ public class LiveOddsServiceTest {
     public void shouldReturnFalseIfNoMatchWasFinished() {
         Scoreboard scoreboard = new Scoreboard();
         Match match = new Match(Country.ARGENTINA, Country.BRAZIL);
-        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboard());
+        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboardMatchList());
         assertFalse(scoreboard.finishMatch(match));
-        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboard());
+        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboardMatchList());
 
         assertEquals(scoreboardBefore.size(), scoreboardAfter.size());
     }
@@ -97,6 +97,6 @@ public class LiveOddsServiceTest {
         Scoreboard scoreboard = new Scoreboard();
         Match match = new Match(Country.ARGENTINA, Country.AUSTRALIA);
         Score score = new Score(1, 2);
-        assertThrows(ValidateException.class, () -> scoreboard.updateScore(match, score).getScore(), ExceptionMessage.SCORE_UPDATE_ERROR_NO_SUCH_MATCH);
+        assertThrows(ValidateException.class, () -> scoreboard.updateScore(match, score), ExceptionMessage.SCORE_UPDATE_ERROR_NO_SUCH_MATCH);
     }
 }

@@ -1,5 +1,6 @@
 package com.challenge.jpa.entity;
 
+import com.challenge.jpa.enums.Country;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Scoreboard {
-    private List<Score> scoreboard = new ArrayList<>();
+
+    private List<Match> scoreboard = new ArrayList<>();
+
+    public Match startMatch(Country homeTeam, Country awayTeam) {
+        return null;
+    }
+
+    public Match updateScore(Match match, Score score) {
+        return null;
+    }
+
+    public void finishMatch(Match match) {
+
+    }
 }

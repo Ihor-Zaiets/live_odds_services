@@ -34,3 +34,18 @@ that I should've deleted project physically from my device and pull It again fro
 some funny ideas from Intellij idea. 
 
 After that I rather quickly was able to implement all code and pass all tests.
+
+### Implementing last feature
+
+Okay, I thought that I finished, but I forgot last thing. Get summary of matches. Again, lets start by making tests
+according to requirements. 
+
+For now, I'm wondering, what is the best way to write this test. I can manually check positions of 
+all matches in scoreboard, or I can write right sorting algorithm in test and then check for equality.
+I decided to write a sorting algorithm.
+
+So, i guess there is some mistake in exercise description, or it's just unclear in which order 
+matches from first example is given. Because in first example I thought the most recent matches go
+from a to e. But in sorted example Uruguay - Italy go before Spain - Brazil. Anyway, I added my 
+custom start date in test cases to be sure everything is correct. Results in debugger showed matches
+sorted from highest score to lowest and from most recent to most past.

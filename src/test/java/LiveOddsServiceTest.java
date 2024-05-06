@@ -1,4 +1,5 @@
 import com.challenge.exception.ExceptionMessage;
+import com.challenge.exception.ValidateException;
 import com.challenge.jpa.entity.Match;
 import com.challenge.jpa.entity.Score;
 import com.challenge.jpa.entity.Scoreboard;
@@ -61,12 +62,23 @@ public class LiveOddsServiceTest {
         Scoreboard scoreboard = new Scoreboard();
         Match match = scoreboard.startMatch(Country.ARGENTINA, Country.BRAZIL);
         List<Match> scoreboardBefore = scoreboard.getScoreboard();
-        scoreboard.finishMatch(match);
+        assertTrue(scoreboard.finishMatch(match));
         List<Match> scoreboardAfter = scoreboard.getScoreboard();
 
         assertTrue(scoreboardBefore.contains(match));
         assertFalse(scoreboardAfter.contains(match));
         assertEquals(scoreboardBefore.size() - numberOfDeletedMatches, scoreboardAfter.size());
+    }
+
+    @Test
+    public void shouldReturnFalseIfNoMatchWasFinished() {
+        Scoreboard scoreboard = new Scoreboard();
+        Match match = new Match(Country.ARGENTINA, Country.BRAZIL);
+        List<Match> scoreboardBefore = scoreboard.getScoreboard();
+        assertFalse(scoreboard.finishMatch(match));
+        List<Match> scoreboardAfter = scoreboard.getScoreboard();
+
+        assertEquals(scoreboardBefore.size(), scoreboardAfter.size());
     }
 
     @Test
@@ -77,5 +89,13 @@ public class LiveOddsServiceTest {
         Score newScore = scoreboard.updateScore(match, score).getScore();
         assertEquals(score.getHomeTeamScore(), newScore.getHomeTeamScore());
         assertEquals(score.getAwayTeamScore(), newScore.getAwayTeamScore());
+    }
+
+    @Test
+    public void shouldThrowIfThereNoSuchMatchDuringScoreUpdate() {
+        Scoreboard scoreboard = new Scoreboard();
+        Match match = new Match(Country.ARGENTINA, Country.AUSTRALIA);
+        Score score = new Score(1, 2);
+        assertThrows(ValidateException.class, () -> scoreboard.updateScore(match, score).getScore(), ExceptionMessage.SCORE_UPDATE_ERROR_NO_SUCH_MATCH);
     }
 }

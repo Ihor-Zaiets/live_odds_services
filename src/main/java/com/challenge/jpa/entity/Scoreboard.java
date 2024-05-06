@@ -25,7 +25,7 @@ public class Scoreboard {
         return null;
     }
 
-    public void finishMatch(Match match) {
-
+    public Boolean finishMatch(Match match) {
+        return null;
     }
 }

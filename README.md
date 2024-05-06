@@ -49,3 +49,24 @@ matches from first example is given. Because in first example I thought the most
 from a to e. But in sorted example Uruguay - Italy go before Spain - Brazil. Anyway, I added my 
 custom start date in test cases to be sure everything is correct. Results in debugger showed matches
 sorted from highest score to lowest and from most recent to most past.
+
+### Reread my code
+
+I see some problems. I have LiveOddsServiceTest, but my LiveOddsService is empty. All business logic currently is in 
+ScoreBoard entity. From one side, it's wrong. Entities are for keeping values. Fields, getters, setters and no business logic.
+From the other side, required operations are quite simple. Getting and setting values for Scoreboard objects. I'm not sure
+if I should somehow put it out to LiveOddsService.
+
+Then, usually tests are written for services, because services have business logic. I cant remember a case, where methods
+of entities would be tested. But some of my validation are built-in in setters and constructors
+and i'm not sure how to treat them.
+
+Reread solid principles. A principe of single responsibility. My scoreboard is printing out already sorted list of matches.
+Is it a violation of single responsibility? On the one side in exercise description clearly described, 
+that "the scoreboard supports the following operations:", so it's looks logical to keep it inside this class. 
+
+I guess my project file structure with jpa, modules and entities is for REST APIs/microservices solutions.
+Maybe i should treat it all a bit easier. I checked how libraries imported from maven look like.
+
+Finally i decided, I will delete unnecessary service and main classes. Also I will divide tests in different classes.
+The moment I stopped treating Match, Score and Scoreboard as entities everything became a lot clearer.

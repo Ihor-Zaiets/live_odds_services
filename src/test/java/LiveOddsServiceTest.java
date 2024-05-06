@@ -6,6 +6,7 @@ import com.challenge.jpa.entity.Scoreboard;
 import com.challenge.jpa.enums.Country;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,9 +50,9 @@ public class LiveOddsServiceTest {
     public void shouldAddMatchToScoreboard() {
         int numberOfCreatedMatches = 1;
         Scoreboard scoreboard = new Scoreboard();
-        List<Match> scoreboardBefore = scoreboard.getScoreboard();
+        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboard());
         Match match = scoreboard.startMatch(Country.ARGENTINA, Country.BRAZIL);
-        List<Match> scoreboardAfter = scoreboard.getScoreboard();
+        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboard());
         assertTrue(scoreboardAfter.contains(match));
         assertEquals(scoreboardBefore.size() + numberOfCreatedMatches, scoreboardAfter.size());
     }
@@ -61,9 +62,9 @@ public class LiveOddsServiceTest {
         int numberOfDeletedMatches = 1;
         Scoreboard scoreboard = new Scoreboard();
         Match match = scoreboard.startMatch(Country.ARGENTINA, Country.BRAZIL);
-        List<Match> scoreboardBefore = scoreboard.getScoreboard();
+        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboard());
         assertTrue(scoreboard.finishMatch(match));
-        List<Match> scoreboardAfter = scoreboard.getScoreboard();
+        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboard());
 
         assertTrue(scoreboardBefore.contains(match));
         assertFalse(scoreboardAfter.contains(match));
@@ -74,9 +75,9 @@ public class LiveOddsServiceTest {
     public void shouldReturnFalseIfNoMatchWasFinished() {
         Scoreboard scoreboard = new Scoreboard();
         Match match = new Match(Country.ARGENTINA, Country.BRAZIL);
-        List<Match> scoreboardBefore = scoreboard.getScoreboard();
+        List<Match> scoreboardBefore = new ArrayList<>(scoreboard.getScoreboard());
         assertFalse(scoreboard.finishMatch(match));
-        List<Match> scoreboardAfter = scoreboard.getScoreboard();
+        List<Match> scoreboardAfter = new ArrayList<>(scoreboard.getScoreboard());
 
         assertEquals(scoreboardBefore.size(), scoreboardAfter.size());
     }
